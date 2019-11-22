@@ -8,10 +8,12 @@ public class BirdController : MonoBehaviour
 
     private bool _isDead = false;
     private Rigidbody2D _rigidbody;
+    private Animator _animator;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -23,6 +25,7 @@ public class BirdController : MonoBehaviour
                 Debug.Log("Jump");
                 _rigidbody.velocity = Vector2.zero;
                 _rigidbody.AddForce(Vector2.up * jumpForce);
+                _animator.SetTrigger("Flap");
             }
         }
     }
@@ -30,5 +33,6 @@ public class BirdController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         _isDead = true;
+        _animator.SetTrigger("Dead");
     }
 }
